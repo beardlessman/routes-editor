@@ -1,0 +1,20 @@
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.layout__panel {
+  width: 50%;
+}
+
+@media (max-width: 700px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .layout__panel {
+    width: 100%;
+    height: 50vh;
+  }
+}
