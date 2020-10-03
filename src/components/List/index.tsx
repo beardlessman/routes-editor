@@ -14,8 +14,8 @@ const List: FC<IProps> = () => {
   const handleSubmitNewPoint = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newPoint = { id: Math.random(), title: newPointTitle };
+    setNewPointTitle("");
     createPoint(newPoint);
-    setNewPointTitle(""); // TODO: если не обновить локальный стейт, то данные из PointStore не обновят компонент. Разобраться
   };
 
   return (

@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { createContext } from "react";
 
 export interface IPoint {
@@ -7,9 +7,13 @@ export interface IPoint {
 }
 
 class PointStore {
-  @observable pointList: IPoint[] = [];
+  pointList: IPoint[] = [];
 
-  @action createPoint = (point: IPoint) => {
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  createPoint = (point: IPoint) => {
     this.pointList.push(point);
   };
 }
