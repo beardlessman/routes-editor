@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { createContext } from "react";
 
 export interface IPoint {
-  id: number;
+  id: string;
   title: string;
 }
 

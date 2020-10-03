@@ -1,6 +1,7 @@
 import React, { FC, useState, useContext } from "react";
 import { observer } from "mobx-react";
-import PointStore from "../../store/Point/PointStore";
+import PointStore, { IPoint } from "../../store/Point/PointStore";
+import { nanoid } from "nanoid";
 
 interface IProps {}
 
@@ -13,7 +14,7 @@ const List: FC<IProps> = () => {
     setNewPointTitle(e.target.value);
   const handleSubmitNewPoint = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newPoint = { id: Math.random(), title: newPointTitle };
+    const newPoint: IPoint = { id: nanoid(), title: newPointTitle };
     setNewPointTitle("");
     createPoint(newPoint);
   };
