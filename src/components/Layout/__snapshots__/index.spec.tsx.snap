@@ -7,6 +7,9 @@ exports[`<Layout> component Should render component Layout 1`] = `
   <div
     className="layout__panel"
   >
+    <Form
+      onSubmit={[Function]}
+    />
     <List />
   </div>
   <div
