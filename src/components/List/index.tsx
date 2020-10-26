@@ -8,8 +8,10 @@ const List: FC<{}> = () => {
 
   return (
     <>
-      {pointList.map(({ id, title }) => (
-        <div key={id}>{title}</div>
+      {pointList.map(({ key, value, coords }) => (
+        <div key={key}>
+          {value} [{coords.join(", ")}]
+        </div>
       ))}
     </>
   );

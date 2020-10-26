@@ -1,12 +1,10 @@
 import { makeAutoObservable } from "mobx";
 import { createContext } from "react";
 
-export interface IPointForm {
-  title: string;
-}
-
-export interface IPoint extends IPointForm {
-  id: number;
+export interface IPoint {
+  value: string;
+  coords: number[];
+  key: number;
 }
 
 export class PointStore {
@@ -16,8 +14,7 @@ export class PointStore {
     makeAutoObservable(this);
   }
 
-  createPoint = (pointForm: IPointForm) => {
-    const point = { ...pointForm, id: Math.random() };
+  createPoint = (point: IPoint) => {
     this.pointList.push(point);
   };
 }
