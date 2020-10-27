@@ -8,6 +8,7 @@ exports[`<Layout> component Should render component Layout 1`] = `
     className="layout__panel"
   >
     <Form
+      getVariants={[Function]}
       onSubmit={[Function]}
     />
     <List />

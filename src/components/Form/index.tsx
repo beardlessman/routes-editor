@@ -4,55 +4,43 @@ import { IPoint } from "../../store/Point/PointStore";
 import { AutoComplete } from "antd";
 
 interface IProps {
-  onSubmit?: (point: IPoint) => void;
+  onSubmit?: (point: IPoint | undefined) => void;
+  getVariants?: (query: string) => Promise<IPoint[]>;
 }
 
-export const Form: FC<IProps> = ({ onSubmit }: IProps) => {
+export const Form: FC<IProps> = ({ getVariants, onSubmit }: IProps) => {
   const [search, setSearch] = useState("");
   const [options, setOptions] = useState<IPoint[]>([]);
 
-  const reset = () => {
+  const submitPoint = (point?: IPoint | undefined): void => {
+    onSubmit && onSubmit(point);
     setSearch("");
     setOptions([]);
   };
 
-  const onSearch = async (query: string) => {
-    if (query.length === 0) {
-      reset();
-      return;
-    }
-    let apikey = `7102a877-527d-4ae8-a6a0-c76304fba8e5`;
-    let api = `https://geocode-maps.yandex.ru/1.x/?format=json&geocode=${query}&apikey=${apikey}`;
-    const results = await fetch(api).then((res) => res.json());
-    const variants: IPoint[] = results.response.GeoObjectCollection.featureMember.map(
-      (v: any) => ({
-        value: v.GeoObject.metaDataProperty.GeocoderMetaData.text,
-        coords: v.GeoObject.Point.pos.split(" "),
-        key: Math.random(),
-      })
-    );
+  const onSearch = async (query: string): Promise<void> => {
+    const variants =
+      query.length > 0 && getVariants ? await getVariants(query) : [];
     setOptions(variants);
   };
 
-  const onSelect = (value: string) => {
-    const newPoint: IPoint | undefined = options.find((v) => v.value === value);
-    reset();
-    newPoint && onSubmit && onSubmit(newPoint);
+  const onSelect = (value: string): void => {
+    const newPoint = options.find((v) => v.value === value);
+    submitPoint(newPoint);
   };
 
-  const onChange = (data: string) => setSearch(data);
+  const onChange = (data: string): void => setSearch(data);
 
   return (
     <AutoComplete
       value={search}
       options={options}
-      style={{ width: 200 }}
+      style={{ width: "100%" }}
       onSelect={onSelect}
       onSearch={onSearch}
       onChange={onChange}
       placeholder="Введите адрес"
       allowClear
-      autoFocus
     />
   );
 };

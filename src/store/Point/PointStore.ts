@@ -14,8 +14,19 @@ export class PointStore {
     makeAutoObservable(this);
   }
 
-  createPoint = (point: IPoint) => {
-    this.pointList.push(point);
+  createPoint = (point: IPoint | undefined) => {
+    point && this.pointList.push(point);
+  };
+
+  getVariants = async (query: string): Promise<IPoint[]> => {
+    let apikey = `7102a877-527d-4ae8-a6a0-c76304fba8e5`;
+    let api = `https://geocode-maps.yandex.ru/1.x/?format=json&geocode=${query}&apikey=${apikey}`;
+    const results = await fetch(api).then((res) => res.json());
+    return results.response.GeoObjectCollection.featureMember.map((v: any) => ({
+      value: v.GeoObject.metaDataProperty.GeocoderMetaData.text,
+      coords: v.GeoObject.Point.pos.split(" "),
+      key: Math.random(),
+    }));
   };
 }
 

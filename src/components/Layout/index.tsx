@@ -9,7 +9,7 @@ const Layout = () => {
   return (
     <div className="layout">
       <div className="layout__panel">
-        <Form onSubmit={store.createPoint} />
+        <Form onSubmit={store.createPoint} getVariants={store.getVariants} />
         <List />
       </div>
       <div className="layout__panel">Map</div>
