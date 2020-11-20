@@ -3,6 +3,7 @@ import "./style.css";
 import List from "../List";
 import Form from "../Form";
 import PointStore from "../../store/Point/PointStore";
+import Map from "../Map";
 
 const Layout = () => {
   const store = useContext(PointStore);
@@ -12,7 +13,9 @@ const Layout = () => {
         <Form onSubmit={store.createPoint} getVariants={store.getVariants} />
         <List />
       </div>
-      <div className="layout__panel">Map</div>
+      <div className="layout__panel">
+        <Map />
+      </div>
     </div>
   );
 };

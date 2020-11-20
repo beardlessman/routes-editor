@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import { observer } from "mobx-react";
 import { IPoint } from "../../store/Point/PointStore";
 import { AutoComplete } from "antd";
 
@@ -45,4 +44,4 @@ export const Form: FC<IProps> = ({ getVariants, onSubmit }: IProps) => {
   );
 };
 
-export default observer(Form);
+export default Form;

@@ -24,7 +24,10 @@ export class PointStore {
     const results = await fetch(api).then((res) => res.json());
     return results.response.GeoObjectCollection.featureMember.map((v: any) => ({
       value: v.GeoObject.metaDataProperty.GeocoderMetaData.text,
-      coords: v.GeoObject.Point.pos.split(" "),
+      coords: v.GeoObject.Point.pos
+        .split(" ")
+        .reverse()
+        .map((i: string) => parseFloat(i)),
       key: Math.random(),
     }));
   };

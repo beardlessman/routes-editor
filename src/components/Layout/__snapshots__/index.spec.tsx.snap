@@ -16,7 +16,7 @@ exports[`<Layout> component Should render component Layout 1`] = `
   <div
     className="layout__panel"
   >
-    Map
+    <PointsMap />
   </div>
 </div>
 `;
