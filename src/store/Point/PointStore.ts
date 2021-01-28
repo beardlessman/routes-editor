@@ -9,13 +9,22 @@ export interface IPoint {
 
 export class PointStore {
   pointList: IPoint[] = [];
+  currentPointCenter: number[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  createPoint = (point: IPoint | undefined) => {
-    point && this.pointList.push(point);
+  setCurrentPointCenter = (newCenter: number[]) => {
+    this.currentPointCenter = newCenter;
+  };
+
+  createPoint = (name: string) => {
+    this.pointList.push({
+      value: name,
+      coords: this.currentPointCenter,
+      key: Math.random(),
+    });
   };
 
   getVariants = async (query: string): Promise<IPoint[]> => {

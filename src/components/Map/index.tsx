@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import {
   YMaps,
   Map,
@@ -13,11 +13,22 @@ const PointsMap: FC = () => {
   const pointStore = useContext(PointStore);
   const { pointList } = pointStore;
 
+  const initialCenter = [0, 0];
+
+  useEffect(() => {
+    pointStore.setCurrentPointCenter(initialCenter);
+  });
+
+  const onBoundsChange = (e: any) => {
+    pointStore.setCurrentPointCenter(e.get("target").getCenter());
+  };
+
   return (
     <YMaps>
       <Map
-        defaultState={{ center: [0, 0], zoom: 2 }}
+        defaultState={{ center: initialCenter, zoom: 2 }}
         style={{ width: "100%", height: "100%" }}
+        onBoundsChange={onBoundsChange}
       >
         <ZoomControl options={{ float: "right" }} />
         <Clusterer>
