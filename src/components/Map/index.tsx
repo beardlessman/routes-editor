@@ -32,12 +32,12 @@ const PointsMap: FC = () => {
       >
         <ZoomControl options={{ float: "right" }} />
         <Clusterer>
-          {pointList.map(({ coords, key, value }) => (
+          {pointList.map(({ coords, key, value }, index) => (
             <Placemark
               key={key}
               geometry={coords}
               properties={{
-                balloonContent: value,
+                balloonContent: `${index}) ${value}`,
               }}
               modules={["geoObject.addon.balloon", "geoObject.addon.hint"]}
             />

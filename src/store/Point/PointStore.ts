@@ -27,6 +27,13 @@ export class PointStore {
     });
   };
 
+  dragItem = (startIndex: number, endIndex: number): void => {
+    const list = [...this.pointList];
+    const [removed] = list.splice(startIndex, 1);
+    list.splice(endIndex, 0, removed);
+    this.pointList = list;
+  }
+
   getVariants = async (query: string): Promise<IPoint[]> => {
     let apikey = `7102a877-527d-4ae8-a6a0-c76304fba8e5`;
     let api = `https://geocode-maps.yandex.ru/1.x/?format=json&geocode=${query}&apikey=${apikey}`;
